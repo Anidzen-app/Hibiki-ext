@@ -16,7 +16,6 @@ export default defineNuxtConfig({
       appVersion: process.env.APP_VERSION || '1.0.0'
     },
     apiKey: process.env.API_KEY || '',
-    appSsrDebug: process.env.APP_SSR_DEBUG || 'false',
     shikimoriApiBaseUrl: process.env.SHIKIMORI_API_BASE_URL || '/'
   },
 
