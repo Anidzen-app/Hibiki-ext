@@ -1,3 +1,6 @@
 {
-  "site_name": "Aira"
+  "site_name": "Aira",
+  "common_app_header": {
+    "name_description": "Անիմեների հեռարձակման օրացույց"
+  }
 }
