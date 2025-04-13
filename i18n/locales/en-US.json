@@ -2,5 +2,22 @@
   "site_name": "Aira",
   "common_app_header": {
     "name_description": "Anime airing calendar"
+  },
+  "select_timestamp": {
+    "title": "Your current timezone",
+    "detected": "We detected your timezone as {zone}. You can change it anytime to see episode times correctly.",
+    "placeholder": "Select a timezone"
+  },
+  "calendar": {
+    "today": "Сегодня",
+    "weekday": {
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота",
+      "sunday": "Воскресенье"
+    }
   }
 }

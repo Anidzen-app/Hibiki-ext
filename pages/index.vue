@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from 'vue';
+const { t, locale } = useI18n();
 
 const ongoing = ref<any[]>([]);
 const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 const formatToLocal = (date: string) => {
   const localDate = new Date(date);
-  return localDate.toLocaleString('ru-RU', { timeZone: userTimeZone });
+  return localDate.toLocaleString(locale.value, { timeZone: userTimeZone });
+};
+
+const formatDayName = (day: string) => {
+  const date = new Date(day);
+  const isToday = date.toDateString() === new Date().toDateString();
+
+  const weekday = date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  const dayNumber = date.toLocaleDateString(locale.value, { day: 'numeric', month: 'long' });
+
+  if (isToday) {
+    return `${t(`calendar.weekday.${weekday}`)}, ${dayNumber}` + ' ' + `(${t('calendar.today')})`;
+  }
+
+  return `${t(`calendar.weekday.${weekday}`)}, ${dayNumber}`;
 };
 
 const groupByDay = (animeList: any[]) => {
@@ -29,8 +43,6 @@ const groupByDay = (animeList: any[]) => {
 onMounted(async () => {
   try {
     const data = await $fetch('/api/shikimori/calendar');
-    console.log(data);
-
     if (Array.isArray(data)) {
       ongoing.value = data;
     } else {
@@ -41,17 +53,11 @@ onMounted(async () => {
   }
 });
 
-// Сгруппированные данные по дням
 const groupedAnime = ref<{ [key: string]: any[] }>({});
 
-// Сортировка по дате, начиная с сегодняшнего дня
 const sortedDays = computed(() => {
   const daysArray = Object.entries(groupedAnime.value);
-
-  // Сортируем по дате
-  return daysArray.sort(([dayA], [dayB]) => {
-    return new Date(dayA) > new Date(dayB) ? 1 : -1;
-  });
+  return daysArray.sort(([dayA], [dayB]) => new Date(dayA) > new Date(dayB) ? 1 : -1);
 });
 
 watch(ongoing, () => {
@@ -60,11 +66,11 @@ watch(ongoing, () => {
 </script>
 
 <template>
-  <div class="grid grid-cols-3 gap-4 mb-5">
+  <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
     <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
       <template #header>
-        <h2 class="text-2xl font-bold">
-          {{ new Date(day).toLocaleDateString('ru-RU', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+        <h2 class="text-center lg:text-left text-2xl font-bold">
+          {{ formatDayName(day) }}
         </h2>
       </template>
       <ul>

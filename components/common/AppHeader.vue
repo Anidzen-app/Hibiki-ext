@@ -9,13 +9,14 @@ const { locale } = useI18n()
 </script>
 
 <template>
-    <UHeader :to="homePath" class="py-3 h-auto" :ui="{ container: 'max-w-[var(--container-8xl)]'}">
+    <UHeader :toggle="false" :to="homePath" class="py-3 h-auto" :ui="{ container: 'max-w-[var(--container-8xl)]'}">
       <template #title>
         <div class="flex items-center justify-between gap-2">
           <NuxtImg
               src="/logo.webp"
               :width="50"
               :height="50"
+              class="pointer-events-none select-none"
           />
           <div class="flex flex-col">
             <h2
@@ -23,7 +24,7 @@ const { locale } = useI18n()
             >
               <span class="text-(--ui-primary)">Ai</span>ra
             </h2>
-            <span class="text-xs">{{ $t('common_app_header.name_description') }}</span>
+            <span class="hidden md:block text-xs text-gray-300">{{ $t('common_app_header.name_description') }}</span>
           </div>
         </div>
       </template>

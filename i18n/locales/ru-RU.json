@@ -2,5 +2,22 @@
   "site_name": "Aira",
   "common_app_header": {
     "name_description": "Календарь выхода аниме"
+  },
+  "select_timestamp": {
+    "title": "Ваша временная зона",
+    "detected": "Мы определили ваш часовой пояс как {zone}. Вы можете изменить его в любой момент, чтобы время серий отображалось корректно для вас.",
+    "placeholder": "Выберите временную зону"
+  },
+  "calendar": {
+    "today": "Сегодня",
+    "weekday": {
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота",
+      "sunday": "Воскресенье"
+    }
   }
 }

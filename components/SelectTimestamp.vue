@@ -32,19 +32,18 @@ watch(selectedZone, (newZone) => {
 
 <template>
   <div class="mb-5">
-    <UCard class="bg-[var(--ui-primary)]/50">
+    <UCard class="bg-[var(--ui-primary)]/90">
       <div class="flex items-center justify-between gap-4 flex-wrap">
         <div>
-          <p class="text-2xl font-bold mb-1">Ваша временная зона: <span class="italic">{{ selectedZone }}</span></p>
-          <p class="text-gray-300">
-            Мы определили ваш часовой пояс как <strong>{{ selectedZone }}</strong>.
-            Вы можете изменить его в любой момент, чтобы время серий отображалось корректно для вас.
+          <p class="text-white text-2xl font-bold mb-1">
+            {{ $t('select_timestamp.title') }}: <span class="italic">{{ selectedZone }}</span>
           </p>
+          <p class="text-white" v-html="$t('select_timestamp.detected', { zone: selectedZone })" />
         </div>
         <USelect
             v-model="selectedZone"
             :items="timezones"
-            placeholder="Выберите временную зону"
+            :placeholder="$t('timezone.placeholder')"
             class="min-w-[220px]"
         />
       </div>

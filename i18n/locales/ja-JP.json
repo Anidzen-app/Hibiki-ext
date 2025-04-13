@@ -2,5 +2,22 @@
   "site_name": "Aira",
   "common_app_header": {
     "name_description": "アニメ放送カレンダー"
+  },
+  "select_timestamp": {
+    "title": "現在のタイムゾーン",
+    "detected": "あなたのタイムゾーンは {zone} と検出されました。エピソードの時間を正しく表示するために、いつでも変更できます。",
+    "placeholder": "タイムゾーンを選択"
+  },
+  "calendar": {
+    "today": "今日",
+    "weekday": {
+      "monday": "月曜日",
+      "tuesday": "火曜日",
+      "wednesday": "水曜日",
+      "thursday": "木曜日",
+      "friday": "金曜日",
+      "saturday": "土曜日",
+      "sunday": "日曜日"
+    }
   }
 }
