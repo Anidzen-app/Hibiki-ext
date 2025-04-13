@@ -14,6 +14,12 @@ export default defineEventHandler(async (event) => {
             }[]
         }
 
+        interface AnimeApiResponse {
+            data: {
+                animes: Anime[]
+            }
+        }
+
         const config = useRuntimeConfig(event)
         const headers = getHeaders(event)
         const apiUrl = config.shikimoriApiBaseUrl
@@ -26,24 +32,24 @@ export default defineEventHandler(async (event) => {
 
         while (hasMore) {
             const query = `
-        query {
-          animes(season: "${currentYear}", limit: ${limit}, page: ${page}, status: "ongoing", kind: "!special") {
-            id
-            russian
-            nextEpisodeAt
-            poster {
-              mainUrl
-            }
-            genres {
-              russian
-            }
-          }
-        }
-      `
+                                query {
+                                  animes(season: "${currentYear}", limit: ${limit}, page: ${page}, status: "ongoing", kind: "!special") {
+                                    id
+                                    russian
+                                    nextEpisodeAt
+                                    poster {
+                                      mainUrl
+                                    }
+                                    genres {
+                                      russian
+                                    }
+                                  }
+                                }
+                              `
 
-            const response = await apiClient(apiUrl, 'POST', { query }, headers)
+            const response = await apiClient<AnimeApiResponse>(apiUrl, 'POST', { query }, headers)
 
-            const currentPageData: Anime[] = response?.data?.animes || []
+            const currentPageData: Anime[] = response.data.animes || []
 
             const filteredData = currentPageData.filter(anime => anime.nextEpisodeAt)
 
