@@ -87,5 +87,13 @@ watch(ongoing, () => {
         </li>
       </ul>
     </UCard>
+
+    <UModal>
+      <UButton label="Open" color="neutral" variant="subtle" />
+
+      <template #content>
+        wdd
+      </template>
+    </UModal>
   </div>
 </template>

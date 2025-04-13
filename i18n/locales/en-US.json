@@ -9,15 +9,15 @@
     "placeholder": "Select a timezone"
   },
   "calendar": {
-    "today": "Сегодня",
+    "today": "Today",
     "weekday": {
-      "monday": "Понедельник",
-      "tuesday": "Вторник",
-      "wednesday": "Среда",
-      "thursday": "Четверг",
-      "friday": "Пятница",
-      "saturday": "Суббота",
-      "sunday": "Воскресенье"
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
     }
   }
 }
