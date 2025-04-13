@@ -86,14 +86,14 @@ watch(ongoing, () => {
 const open = ref(false)
 const selectedAnime = ref<any>(null);
 
-const fetchAnimeDetails = async (id: number) => {
-  try {
-    open.value = true;
-    selectedAnime.value = await $fetch(`/api/shikimori/anime/${id}`);
-  } catch (error) {
-    console.error(error);
-  }
-};
+// const fetchAnimeDetails = async (id: number) => {
+//   try {
+//     open.value = true;
+//     selectedAnime.value = await $fetch(`/api/shikimori/anime/${id}`);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 const redirectToOtaKu = async (id: number) => {
   navigateTo(`https://ota-ku.am/OpenAnimeView?animeId=${id}`, {external: true})
@@ -103,7 +103,7 @@ const redirectToOtaKu = async (id: number) => {
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
 
-    <UCard v-if="isLoading" v-for="datum in 6">
+    <UCard v-for="datum in 6" v-if="isLoading">
       <template #header>
         <USkeleton class="w-full h-[32px]"/>
       </template>
@@ -122,7 +122,7 @@ const redirectToOtaKu = async (id: number) => {
       </template>
     </UCard>
 
-    <UCard v-else v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
+    <UCard v-for="([day, animeList], index) in sortedDays" v-else :key="index" class="bg-(--ui-bg-elevated)/25">
       <template #header>
         <h2 class="text-center lg:text-left text-2xl font-bold">
           {{ formatDayName(day) }}
@@ -130,7 +130,7 @@ const redirectToOtaKu = async (id: number) => {
       </template>
       <template #default>
         <div>
-          <div v-for="anime in animeList" :key="anime.id" @click="redirectToOtaKu(anime.id)" class="cursor-pointer">
+          <div v-for="anime in animeList" :key="anime.id" class="cursor-pointer" @click="redirectToOtaKu(anime.id)">
             <div class="flex items-start gap-2 mb-2">
               <div class="rounded-lg min-w-[100px] max-w-[100px] overflow-hidden">
                 <NuxtImg :src="anime.poster.mainUrl"/>
