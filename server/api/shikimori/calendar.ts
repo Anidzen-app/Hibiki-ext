@@ -56,6 +56,12 @@ export default defineEventHandler(async (event) => {
             }
         }
 
+        allOngoings.sort((a, b) => {
+            const dateA = new Date(a.nextEpisodeAt!).getTime()
+            const dateB = new Date(b.nextEpisodeAt!).getTime()
+            return dateA - dateB
+        })
+
         return allOngoings
     } catch (error) {
         return handle(error)
