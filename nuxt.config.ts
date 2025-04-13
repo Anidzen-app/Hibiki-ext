@@ -19,10 +19,23 @@ export default defineNuxtConfig({
     shikimoriApiBaseUrl: process.env.SHIKIMORI_API_BASE_URL || '/'
   },
 
+  css: ['~/assets/css/main.css'],
+
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
-    '@nuxt/ui',
+    '@nuxt/ui-pro',
     '@nuxt/test-utils'
-  ]
+  ],
+
+  colorMode: {
+    preference: 'system',
+    fallback: 'dark',
+    hid: 'nuxt-color-mode-script',
+    globalName: '__NUXT_COLOR_MODE__',
+    componentName: 'ColorScheme',
+    classSuffix: '-mode',
+    storage: 'localStorage',
+    storageKey: 'hibiki-ext-color-mode'
+  },
 })

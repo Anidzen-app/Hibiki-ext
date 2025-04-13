@@ -4,6 +4,8 @@
 
 <template>
   <div>
+    <CommonAppHeader/>
+
     <slot/>
   </div>
 </template>

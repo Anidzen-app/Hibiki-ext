@@ -1,7 +1,13 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div>
-    <NuxtLayout>
-      <NuxtPage/>
-    </NuxtLayout>
+    <UApp :toaster="{ expand: false }">
+      <NuxtLoadingIndicator />
+      <NuxtLayout>
+        <NuxtPage/>
+      </NuxtLayout>
+    </UApp>
   </div>
 </template>

@@ -23,4 +23,5 @@ const formatToLocal = (isoDate: string | null) => {
       </li>
     </ul>
   </div>
+
 </template>
