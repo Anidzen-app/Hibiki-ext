@@ -5,6 +5,8 @@
   <div>
     <UApp :toaster="{ expand: false }">
       <NuxtLoadingIndicator />
+      <CommonAppShare/>
+
       <NuxtLayout>
         <NuxtPage/>
       </NuxtLayout>

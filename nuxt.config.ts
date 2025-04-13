@@ -25,7 +25,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui-pro',
-    '@nuxt/test-utils'
+    '@nuxt/test-utils',
+    '@nuxtjs/i18n',
   ],
 
   colorMode: {
@@ -37,5 +38,21 @@ export default defineNuxtConfig({
     classSuffix: '-mode',
     storage: 'localStorage',
     storageKey: 'hibiki-ext-color-mode'
+  },
+
+  i18n: {
+    bundle: {
+      optimizeTranslationDirective: false
+    },
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en-US.json', name: 'English' },
+      { code: 'hy', iso: 'hy-AM', file: 'hy-AM.json', name: 'Հայերեն' },
+      { code: 'ja', iso: 'ja-JP', file: 'ja-JP.json', name: '日本語' },
+      { code: 'ru', iso: 'ru-RU', file: 'ru-RU.json', name: 'Русский' },
+    ],
+    lazy: false,
+    defaultLocale: 'en',
+    strategy: 'prefix_except_default',
+    vueI18n: './i18n.config.ts',
   },
 })

@@ -6,7 +6,11 @@
   <div>
     <CommonAppHeader/>
 
-    <slot/>
+    <UMain class="mt-6">
+      <UContainer class="max-w-[var(--container-8xl)]">
+        <slot/>
+      </UContainer>
+    </UMain>
   </div>
 </template>
 

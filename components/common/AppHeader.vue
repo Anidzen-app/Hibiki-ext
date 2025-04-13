@@ -3,17 +3,29 @@
 </script>
 
 <template>
-  <div>
-    <UHeader :ui="{ container: 'max-w-[var(--container-8xl)]'}">
+    <UHeader class="py-3 h-auto" :ui="{ container: 'max-w-[var(--container-8xl)]'}">
       <template #title>
-        Hibiki
+        <div class="flex items-center justify-between gap-2">
+          <NuxtImg
+              src="/logo.webp"
+              :width="55"
+              :height="55"
+          />
+          <div class="flex flex-col">
+            <h2
+                class="text-3xl font-bold"
+            >
+              <span class="text-(--ui-primary)">Ai</span>ra
+            </h2>
+            <span class="text-xs">ongoing callendar</span>
+          </div>
+        </div>
       </template>
 
       <template #right>
-        <UButton icon="i-simple-icons-github" variant="soft" to="https://github.com/Anidzen-app/Hibiki-ext"></UButton>
+        <UColorModeButton size="xl" variant="soft" color="primary" class="cursor-pointer"/>
       </template>
     </UHeader>
-  </div>
 </template>
 
 <style scoped>
