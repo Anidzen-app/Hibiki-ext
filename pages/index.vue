@@ -103,13 +103,13 @@ const redirectToOtaKu = async (id: number) => {
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
 
-    <UCard v-for="datum in 6" v-if="isLoading">
+    <UCard v-for="(datum, index) in 6" v-if="isLoading" :key="index">
       <template #header>
         <USkeleton class="w-full h-[32px]"/>
       </template>
       <template #default>
         <div>
-          <div v-for="datum in 3">
+          <div v-for="(datum, index) in 6" :key="index">
             <div class="flex items-start gap-2 mb-2">
               <USkeleton class="rounded-lg min-w-[100px] max-w-[100px] min-h-[141.3px] max-h-[141.3px] overflow-hidden"/>
               <div class="flex gap-2 flex-col w-full items-start">
