@@ -122,7 +122,7 @@ const redirectToOtaKu = async (id: number) => {
       </template>
     </UCard>
 
-    <UCard v-for="([day, animeList], index) in sortedDays" v-else :key="index" class="bg-(--ui-bg-elevated)/25">
+    <UCard v-else v-for="([day, animeList]) in sortedDays" class="bg-(--ui-bg-elevated)/25">
       <template #header>
         <h2 class="text-center lg:text-left text-2xl font-bold">
           {{ formatDayName(day) }}
