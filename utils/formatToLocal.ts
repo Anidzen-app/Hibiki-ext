@@ -1,4 +1,4 @@
-export const formatToLocal = (isoDate: string | null, userTimeZone: string, locale: string = 'ru-RU') => {
+export const formatToLocal = (isoDate: string | null, userTimeZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone, locale: string = 'ru-RU') => {
     if (!isoDate) return '—'
     const date = new Date(isoDate)
 
