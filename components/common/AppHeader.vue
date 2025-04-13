@@ -13,7 +13,7 @@ const { locale } = useI18n()
       <template #title>
         <div class="flex items-center justify-between gap-2">
           <NuxtImg
-              src="/logo.webp"
+              src="/logo.png"
               :width="50"
               :height="50"
               class="pointer-events-none select-none"

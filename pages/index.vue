@@ -63,11 +63,9 @@ onMounted(async () => {
           localStorage.setItem('ongoing_animes_timestamp', currentTime.toString())
         } else {
           console.error(data);
-          isLoading.value = false;
         }
       } catch (error) {
         console.error(error);
-        isLoading.value = false;
       }
     }
 });
