@@ -4,6 +4,8 @@ const { t, locale } = useI18n();
 const ongoing = ref<any[]>([]);
 const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+const isLoading = ref(true);
+
 const formatToLocal = (date: string) => {
   const localDate = new Date(date);
   return localDate.toLocaleString(locale.value, { timeZone: userTimeZone });
@@ -41,16 +43,33 @@ const groupByDay = (animeList: any[]) => {
 };
 
 onMounted(async () => {
-  try {
-    const data = await $fetch('/api/shikimori/calendar');
-    if (Array.isArray(data)) {
-      ongoing.value = data;
+    const cachedData = localStorage.getItem('ongoing_animes_data');
+    const cacheTimestamp = localStorage.getItem('ongoing_animes_timestamp');
+
+    const currentTime = new Date().getTime();
+
+    if (cachedData && cacheTimestamp && currentTime - parseInt(cacheTimestamp) < 60 * 60 * 1000) {
+
+      ongoing.value = JSON.parse(cachedData);
+      isLoading.value = false;
     } else {
-      console.error(data);
+      try {
+        const data = await $fetch('/api/shikimori/calendar');
+        if (Array.isArray(data)) {
+          ongoing.value = data;
+          isLoading.value = false;
+
+          localStorage.setItem('ongoing_animes_data', JSON.stringify(data))
+          localStorage.setItem('ongoing_animes_timestamp', currentTime.toString())
+        } else {
+          console.error(data);
+          isLoading.value = false;
+        }
+      } catch (error) {
+        console.error(error);
+        isLoading.value = false;
+      }
     }
-  } catch (error) {
-    console.error(error);
-  }
 });
 
 const groupedAnime = ref<{ [key: string]: any[] }>({});
@@ -77,31 +96,53 @@ const fetchAnimeDetails = async (id: number) => {
 };
 
 const redirectToOtaKu = async (id: number) => {
-  navigateTo(`https://ota-ku.am/openAnimeView?animeId=${id}`)
+  navigateTo(`https://ota-ku.am/OpenAnimeView?animeId=${id}`, {external: true})
 };
 </script>
 
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
-    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
+
+    <UCard v-if="isLoading" v-for="datum in 6">
+      <template #header>
+        <USkeleton class="w-full h-[32px]"/>
+      </template>
+      <template #default>
+        <div>
+          <div v-for="datum in 3">
+            <div class="flex items-start gap-2 mb-2">
+              <USkeleton class="rounded-lg min-w-[100px] max-w-[100px] min-h-[141.3px] max-h-[141.3px] overflow-hidden"/>
+              <div class="flex gap-2 flex-col w-full items-start">
+                  <USkeleton class="w-full max-w-[200px] min-h-[23px]"/>
+                  <USkeleton class="w-full max-w-[400px] min-h-[23px]"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </template>
+    </UCard>
+
+    <UCard v-else v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
       <template #header>
         <h2 class="text-center lg:text-left text-2xl font-bold">
           {{ formatDayName(day) }}
         </h2>
       </template>
-      <div>
-        <div v-for="anime in animeList" :key="anime.id" @click="redirectToOtaKu(anime.id)">
-          <div class="flex items-start gap-2 mb-2">
-            <div class="rounded-lg min-w-[100px] max-w-[100px] overflow-hidden">
-              <NuxtImg :src="anime.poster.mainUrl"/>
-            </div>
-            <div>
-              <h4 class="font-bold text-[var(--ui-primary)] line-clamp-2">{{ anime.russian }}</h4>
-              <span>следующая серия: {{ formatToLocal(anime.nextEpisodeAt) }}</span>
+      <template #default>
+        <div>
+          <div v-for="anime in animeList" :key="anime.id" @click="redirectToOtaKu(anime.id)" class="cursor-pointer">
+            <div class="flex items-start gap-2 mb-2">
+              <div class="rounded-lg min-w-[100px] max-w-[100px] overflow-hidden">
+                <NuxtImg :src="anime.poster.mainUrl"/>
+              </div>
+              <div>
+                <h4 class="font-bold text-[var(--ui-primary)] line-clamp-2">{{ anime.russian }}</h4>
+                <span>следующая серия: {{ formatToLocal(anime.nextEpisodeAt) }}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </template>
     </UCard>
   </div>
 
