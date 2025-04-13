@@ -43,7 +43,7 @@ watch(selectedZone, (newZone) => {
         <USelect
             v-model="selectedZone"
             :items="timezones"
-            :placeholder="$t('timezone.placeholder')"
+            :placeholder="$t('select_timestamp.placeholder')"
             class="min-w-[220px]"
         />
       </div>

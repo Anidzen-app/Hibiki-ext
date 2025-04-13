@@ -46,10 +46,10 @@ onMounted(async () => {
     if (Array.isArray(data)) {
       ongoing.value = data;
     } else {
-      console.error('Полученные данные не являются массивом', data);
+      console.error(data);
     }
   } catch (error) {
-    console.error('Ошибка при получении данных:', error);
+    console.error(error);
   }
 });
 
@@ -72,21 +72,25 @@ const fetchAnimeDetails = async (id: number) => {
     open.value = true;
     selectedAnime.value = await $fetch(`/api/shikimori/anime/${id}`);
   } catch (error) {
-    console.error('Ошибка при получении данных аниме:', error);
+    console.error(error);
   }
+};
+
+const redirectToOtaKu = async (id: number) => {
+  navigateTo(`https://ota-ku.am/openAnimeView?animeId=${id}`)
 };
 </script>
 
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
-    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25" @click="fetchAnimeDetails(anime.id)">
+    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
       <template #header>
         <h2 class="text-center lg:text-left text-2xl font-bold">
           {{ formatDayName(day) }}
         </h2>
       </template>
-      <ul>
-        <li v-for="anime in animeList" :key="anime.id">
+      <div>
+        <div v-for="anime in animeList" :key="anime.id" @click="redirectToOtaKu(anime.id)">
           <div class="flex items-start gap-2 mb-2">
             <div class="rounded-lg min-w-[100px] max-w-[100px] overflow-hidden">
               <NuxtImg :src="anime.poster.mainUrl"/>
@@ -96,8 +100,8 @@ const fetchAnimeDetails = async (id: number) => {
               <span>следующая серия: {{ formatToLocal(anime.nextEpisodeAt) }}</span>
             </div>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
     </UCard>
   </div>
 
@@ -105,9 +109,10 @@ const fetchAnimeDetails = async (id: number) => {
     <UModal v-model:open="open" :ui="{ footer: 'justify-end' }">
 
       <template #body>
-        <div>
-          wd
+        <div v-if="selectedAnime">
+          <h3>{{ selectedAnime.russian }}</h3>
         </div>
+        <div v-else>Loading...</div>
       </template>
     </UModal>
   </div>

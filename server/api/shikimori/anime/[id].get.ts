@@ -57,8 +57,8 @@ export default defineEventHandler(async (event) => {
               }
             }
         `
-
-        return await apiClient<AnimeApiResponse>(apiUrl, 'POST', { query }, headers)
+        const response = await apiClient<AnimeApiResponse>(apiUrl, 'POST', { query }, headers)
+        return response.data?.animes[0]
     } catch (error) {
         return handle(error)
     }
