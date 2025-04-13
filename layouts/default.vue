@@ -6,10 +6,12 @@
   <div>
     <CommonAppHeader/>
 
-    <slot/>
+    <div class="mt-5">
+      <UContainer class="max-w-[var(--container-8xl)]">
+        <SelectTimestamp/>
+
+        <slot/>
+      </UContainer>
+    </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>

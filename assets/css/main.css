@@ -4,4 +4,16 @@
 @theme static {
     --container-8xl: 100rem;
     --font-sans: 'Public Sans', sans-serif;
+
+    --color-moodyblue-50:  #edf0ff;
+    --color-moodyblue-100: #dfe2ff;
+    --color-moodyblue-200: #c5c9ff;
+    --color-moodyblue-300: #a2a5ff;
+    --color-moodyblue-400: #837dfc;
+    --color-moodyblue-500: #7a6af7;
+    --color-moodyblue-600: #6140eb;
+    --color-moodyblue-700: #5333cf;
+    --color-moodyblue-800: #442ca7;
+    --color-moodyblue-900: #3a2b84;
+    --color-moodyblue-950: #3a2b84;
 }
