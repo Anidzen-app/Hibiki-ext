@@ -6,8 +6,11 @@
   <div>
     <CommonAppHeader/>
 
-    <UMain class="mt-6">
+    <UMain class="mt-5">
+
       <UContainer class="max-w-[var(--container-8xl)]">
+
+        <SelectTimestamp/>
         <slot/>
       </UContainer>
     </UMain>

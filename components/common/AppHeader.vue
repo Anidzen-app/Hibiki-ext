@@ -34,7 +34,3 @@ const { locale } = useI18n()
       </template>
     </UHeader>
 </template>
-
-<style scoped>
-
-</style>
