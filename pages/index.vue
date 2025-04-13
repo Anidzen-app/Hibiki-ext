@@ -61,10 +61,10 @@ watch(ongoing, () => {
 
 <template>
   <div class="grid grid-cols-3 gap-4 mb-5">
-    <UCard v-for="([day, animeList], index) in sortedDays" :key="index">
+    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
       <template #header>
         <h2 class="text-2xl font-bold">
-          {{ new Date(day).toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+          {{ new Date(day).toLocaleDateString('ru-RU', { weekday: 'long', month: 'long', day: 'numeric' }) }}
         </h2>
       </template>
       <ul>
