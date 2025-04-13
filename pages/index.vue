@@ -63,11 +63,23 @@ const sortedDays = computed(() => {
 watch(ongoing, () => {
   groupedAnime.value = groupByDay(ongoing.value);
 });
+
+const open = ref(false)
+const selectedAnime = ref<any>(null);
+
+const fetchAnimeDetails = async (id: number) => {
+  try {
+    open.value = true;
+    selectedAnime.value = await $fetch(`/api/shikimori/anime/${id}`);
+  } catch (error) {
+    console.error('Ошибка при получении данных аниме:', error);
+  }
+};
 </script>
 
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-5 mb-5">
-    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25">
+    <UCard v-for="([day, animeList], index) in sortedDays" :key="index" class="bg-(--ui-bg-elevated)/25" @click="fetchAnimeDetails(anime.id)">
       <template #header>
         <h2 class="text-center lg:text-left text-2xl font-bold">
           {{ formatDayName(day) }}
@@ -87,12 +99,15 @@ watch(ongoing, () => {
         </li>
       </ul>
     </UCard>
+  </div>
 
-    <UModal>
-      <UButton label="Open" color="neutral" variant="subtle" />
+  <div>
+    <UModal v-model:open="open" :ui="{ footer: 'justify-end' }">
 
-      <template #content>
-        wdd
+      <template #body>
+        <div>
+          wd
+        </div>
       </template>
     </UModal>
   </div>
