@@ -19,14 +19,13 @@ interface AnimeApiResponse {
     }
 }
 
-export async function fetchShikimoriCalendar(apiUrl: string): Promise<Anime[]> {
+export async function fetchShikimoriCalendar(apiUrl: string, headers: HeadersInit = {}): Promise<Anime[]> {
     const currentYear = new Date().getFullYear()
 
     const allOngoings: Anime[] = []
     let page = 1
     const limit = 50
     let hasMore = true
-    const headers = getHeaders(event)
 
     while (hasMore) {
         const query = `
