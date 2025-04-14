@@ -1,3 +1,4 @@
+import {RequestHeaders} from "h3";
 
 type HttpMethod =
     | 'GET'
@@ -12,7 +13,7 @@ export const apiClient = async <T>(
     url: string,
     method?: HttpMethod,
     body: unknown = null,
-    extraHeaders?: HeadersInit
+    extraHeaders?: RequestHeaders
 ): Promise<T> => {
     try {
         const blockedHeaders = [
