@@ -1,3 +1,5 @@
+import {useHandle} from "~/composables/useHandle";
+
 type HttpMethod =
     | 'GET'
     | 'POST'
@@ -7,7 +9,7 @@ type HttpMethod =
     | 'OPTIONS'
     | 'HEAD'
 
-export const apiClient = async <T>(
+export const useApiClient = async <T>(
     url: string,
     method?: HttpMethod,
     body: unknown = null,
@@ -28,7 +30,7 @@ export const apiClient = async <T>(
         )
 
         const headers = {
-            ...getBaseHeaders(),
+            ...useGetBaseHeaders(),
             ...filteredExtraHeaders
         }
 
@@ -38,6 +40,6 @@ export const apiClient = async <T>(
             body: body ? JSON.stringify(body) : null
         }) as T;
     } catch (error) {
-        return handle(error) as T
+        return useHandle(error) as T
     }
 }
