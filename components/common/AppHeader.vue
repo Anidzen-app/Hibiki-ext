@@ -31,7 +31,7 @@ const { locale } = useI18n()
 
       <template #right>
         <ULocaleSelect v-model="locale" :locales="[en, hy, ja, ru]" />
-        <UColorModeButton variant="soft" color="primary" class="cursor-pointer"/>
+        <UiColorModeButton/>
       </template>
     </UHeader>
 </template>

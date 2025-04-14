@@ -21,9 +21,12 @@
     "@nuxtjs/i18n": "^9.5.3",
     "eslint": "^9.24.0",
     "nuxt": "^3.16.2",
+    "nuxt-ui-pro-plugin": "file:ui-pro-plugin",
     "typescript": "^5.8.3",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "nuxt-ui-pro-plugin": "file:ui-pro-plugin"
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@iconify-json/lucide": "^1.2.36"
   }
 }
