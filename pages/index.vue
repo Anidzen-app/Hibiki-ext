@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {fetchShikimoriCalendar} from "~/composables/useShikimoriCalendar";
+
 const { t, locale } = useI18n();
 
 const ongoing = ref<any[]>([]);
@@ -43,31 +45,42 @@ const groupByDay = (animeList: any[]) => {
 };
 
 onMounted(async () => {
-    const cachedData = localStorage.getItem('ongoing_animes_data');
-    const cacheTimestamp = localStorage.getItem('ongoing_animes_timestamp');
+  const cachedData = localStorage.getItem('ongoing_animes_data');
+  const cacheTimestamp = localStorage.getItem('ongoing_animes_timestamp');
 
-    const currentTime = new Date().getTime();
+  const currentTime = new Date().getTime();
 
-    if (cachedData && cacheTimestamp && currentTime - parseInt(cacheTimestamp) < 60 * 60 * 1000) {
+  if (cachedData && cacheTimestamp && currentTime - parseInt(cacheTimestamp) < 60 * 60 * 1000) {
 
-      ongoing.value = JSON.parse(cachedData);
-      isLoading.value = false;
-    } else {
-      try {
-        const data = await $fetch('/api/shikimori/calendar');
-        if (Array.isArray(data)) {
-          ongoing.value = data;
-          isLoading.value = false;
+    ongoing.value = JSON.parse(cachedData);
+    isLoading.value = false;
+  } else {
+    try {
+      // const data = await $fetch('/api/shikimori/calendar');
+      // if (Array.isArray(data)) {
+      //   ongoing.value = data;
+      //   isLoading.value = false;
+      //
+      //   localStorage.setItem('ongoing_animes_data', JSON.stringify(data))
+      //   localStorage.setItem('ongoing_animes_timestamp', currentTime.toString())
+      // } else {
+      //   console.error(data);
+      // }
 
-          localStorage.setItem('ongoing_animes_data', JSON.stringify(data))
-          localStorage.setItem('ongoing_animes_timestamp', currentTime.toString())
-        } else {
-          console.error(data);
-        }
-      } catch (error) {
-        console.error(error);
+      const data = await fetchShikimoriCalendar('https://shikimori.one/api/graphql')
+      if (Array.isArray(data)) {
+        ongoing.value = data;
+        isLoading.value = false;
+
+        localStorage.setItem('ongoing_animes_data', JSON.stringify(data))
+        localStorage.setItem('ongoing_animes_timestamp', currentTime.toString())
+      } else {
+        console.error(data);
       }
+    } catch (error) {
+      console.error(error);
     }
+  }
 });
 
 const groupedAnime = ref<{ [key: string]: any[] }>({});
@@ -107,12 +120,12 @@ const redirectToOtaKu = async (id: number) => {
       </template>
       <template #default>
         <div>
-          <div v-for="(datum, index) in 6" :key="index">
+          <div v-for="(datum, index) in 3" :key="index">
             <div class="flex items-start gap-2 mb-2">
               <USkeleton class="rounded-lg min-w-[100px] max-w-[100px] min-h-[141.3px] max-h-[141.3px] overflow-hidden"/>
               <div class="flex gap-2 flex-col w-full items-start">
-                  <USkeleton class="w-full max-w-[200px] min-h-[23px]"/>
-                  <USkeleton class="w-full max-w-[400px] min-h-[23px]"/>
+                <USkeleton class="w-full max-w-[200px] min-h-[23px]"/>
+                <USkeleton class="w-full max-w-[400px] min-h-[23px]"/>
               </div>
             </div>
           </div>

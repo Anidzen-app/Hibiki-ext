@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
-
 const STORAGE_KEY = 'user_current_timezone';
 
 const defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-const selectedZone = ref<string>(
-    localStorage.getItem(STORAGE_KEY) || defaultTimezone
-);
+const selectedZone = ref<string>(defaultTimezone);
 
 const timezones = ref([
   'Asia/Yerevan',
