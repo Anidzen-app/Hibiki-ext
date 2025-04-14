@@ -1,4 +1,5 @@
 import {useApiClient} from "~/composables/useApiClient";
+import {getHeaders} from "h3";
 
 interface Anime {
     id: number
@@ -18,13 +19,14 @@ interface AnimeApiResponse {
     }
 }
 
-export async function fetchShikimoriCalendar(apiUrl: string, headers: HeadersInit = {}): Promise<Anime[]> {
+export async function fetchShikimoriCalendar(apiUrl: string): Promise<Anime[]> {
     const currentYear = new Date().getFullYear()
 
     const allOngoings: Anime[] = []
     let page = 1
     const limit = 50
     let hasMore = true
+    const headers = getHeaders(event)
 
     while (hasMore) {
         const query = `

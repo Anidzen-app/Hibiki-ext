@@ -1,3 +1,6 @@
+import {T} from "unplugin-vue-router/types-CTGkmk9e";
+import {RequestHeaders} from "h3";
+
 type HttpMethod =
     | 'GET'
     | 'POST'
@@ -11,7 +14,7 @@ export const apiClient = async <T>(
     url: string,
     method?: HttpMethod,
     body: unknown = null,
-    extraHeaders?: HeadersInit
+    extraHeaders?: RequestHeaders
 ): Promise<T> => {
     try {
         const blockedHeaders = [
